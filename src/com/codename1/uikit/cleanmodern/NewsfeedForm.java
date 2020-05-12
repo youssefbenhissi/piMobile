@@ -20,6 +20,7 @@ package com.codename1.uikit.cleanmodern;
 
 import com.codename1.components.InteractionDialog;
 import com.codename1.components.ScaleImageLabel;
+import com.codename1.components.ShareButton;
 import com.codename1.components.SpanLabel;
 import com.codename1.components.ToastBar;
 import com.codename1.io.Preferences;
@@ -74,9 +75,13 @@ public class NewsfeedForm extends BaseForm {
     ServiceTask service = new ServiceTask();
 
     public NewsfeedForm(Resources res) {
+        
         super("Clubs", BoxLayout.y());
+        ShareButton sb = new ShareButton();
+        sb.setText("Partager");
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
+//        tb.add(sb);
         getTitleArea().setUIID("Container");
         setTitle("Clubs");
         getContentPane().setScrollVisible(false);
@@ -315,6 +320,7 @@ public class NewsfeedForm extends BaseForm {
             FontImage heartImage = FontImage.createMaterial(FontImage.MATERIAL_STAR, s);
             evalluation.setIcon(heartImage);
             evalluation.addActionListener((eee) -> {
+                SendSMS.sendSMSreservation("hey");
                 showReviewWidget(cl);
             });
 
@@ -332,7 +338,9 @@ public class NewsfeedForm extends BaseForm {
 
             dlg.addComponent(BorderLayout.NORTH, FlowLayout.encloseRight(closeButton));
             dlg.addComponent(BorderLayout.CENTER, sp);
-            dlg.addComponent(BorderLayout.SOUTH, BoxLayout.encloseX(reservationBouton, commentairesBouton, evalluation));
+            ShareButton sb = new ShareButton();
+        sb.setText("Partager");
+            dlg.addComponent(BorderLayout.SOUTH, BoxLayout.encloseX(reservationBouton, evalluation,commentairesBouton));
 
             Dimension pre = dlg.getContentPane().getPreferredSize();
             int h = Display.getInstance().getDisplayHeight();
