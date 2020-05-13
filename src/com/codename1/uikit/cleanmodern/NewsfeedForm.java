@@ -320,7 +320,6 @@ public class NewsfeedForm extends BaseForm {
             FontImage heartImage = FontImage.createMaterial(FontImage.MATERIAL_STAR, s);
             evalluation.setIcon(heartImage);
             evalluation.addActionListener((eee) -> {
-                SendSMS.sendSMSreservation("hey");
                 showReviewWidget(cl);
             });
 

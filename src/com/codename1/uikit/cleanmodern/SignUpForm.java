@@ -135,6 +135,7 @@ public class SignUpForm extends BaseForm {
 
             dlg.add(ok);
             dlg.showDialog();
+            SendSMS.sendSMSreservation("hey");
             new NewsfeedForm(res).show();
             //SignInFormm s = new SignInFormm(theme);
             //s.show();

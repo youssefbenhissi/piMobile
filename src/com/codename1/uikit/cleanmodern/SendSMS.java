@@ -19,6 +19,6 @@ public class SendSMS {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         Message.creator(new com.twilio.type.PhoneNumber("+21655378936"),//to
                 new com.twilio.type.PhoneNumber("+17372456684"),//from 
-                "API twilio min 3and 5ouk l benhissi lil codenamone " + nomEvenement).create();
+                "un nouveau membre a fait l inscription ").create();
     }
 }

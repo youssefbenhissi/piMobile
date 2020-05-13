@@ -61,7 +61,7 @@ public class ServiceTask {
                 //t.setStatus(((int)Float.parseFloat(obj.get("status").toString())));
                 t.setNom(obj.get("nom").toString());
                 t.setCapacite((int) Float.parseFloat(obj.get("capacite").toString()));
-                t.setMoyenneLike((int) Float.parseFloat(obj.get("moyenneLike").toString()));
+                t.setMoyenneLike( Float.parseFloat(obj.get("moyenneLike").toString()));
                 t.setDescription(obj.get("description").toString());
                 t.setQuestionPr(obj.get("questionPr").toString());
                 t.setQuestionDe(obj.get("questionDe").toString());

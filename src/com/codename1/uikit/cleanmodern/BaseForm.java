@@ -89,8 +89,10 @@ public class BaseForm extends Form {
                 FlowLayout.encloseCenterBottom(
                         new Label(res.getImage("profile-pic.jpg"), "PictureWhiteBackgrond"))
         ));
-        
+        BibliothequeForm forms= new BibliothequeForm();
+                     
         tb.addMaterialCommandToSideMenu("Nos Clubs", FontImage.MATERIAL_CASINO, e -> new NewsfeedForm(res).show());
+        tb.addMaterialCommandToSideMenu("Notre Bibliotheque", FontImage.MATERIAL_BOOK, e -> forms.getForm().show());
         tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_SETTINGS, e -> new ProfileForm(res).show());
         tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new WalkthruForm(res).show());
     }
