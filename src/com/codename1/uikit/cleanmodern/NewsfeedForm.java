@@ -23,7 +23,9 @@ import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.ShareButton;
 import com.codename1.components.SpanLabel;
 import com.codename1.components.ToastBar;
+import com.codename1.io.FileSystemStorage;
 import com.codename1.io.Preferences;
+import com.codename1.io.Util;
 import com.codename1.messaging.Message;
 import com.codename1.ui.Button;
 import com.codename1.ui.ButtonGroup;
@@ -75,7 +77,7 @@ public class NewsfeedForm extends BaseForm {
     ServiceTask service = new ServiceTask();
 
     public NewsfeedForm(Resources res) {
-        
+
         super("Clubs", BoxLayout.y());
         ShareButton sb = new ShareButton();
         sb.setText("Partager");
@@ -145,19 +147,19 @@ public class NewsfeedForm extends BaseForm {
         RadioButton all = RadioButton.createToggle("All", barGroup);
         all.setUIID("SelectBar");
         all.addActionListener(e -> {
-            
+
             List<Club> listClub = service.getAllTasks();
-            new topThreeClub(res, (ArrayList<Club>) listClub,0).show();
+            new topThreeClub(res, (ArrayList<Club>) listClub, 0).show();
             //addButton(res.getImage("news-item-2.jpg"), "Fusce ornare cursus masspretium tortor integer placera.", true, 15, 21);
         });
-        
+
         RadioButton popular = RadioButton.createToggle("Top 3", barGroup);
         popular.setUIID("SelectBar");
         popular.addActionListener(e -> {
             ServiceTask service = new ServiceTask();
 
             ArrayList<Club> liste = service.getTopThree();
-            new topThreeClub(res, liste,1).show();
+            new topThreeClub(res, liste, 1).show();
         });
         RadioButton myFavorite = RadioButton.createToggle("Mes favoris", barGroup);
         myFavorite.setUIID("SelectBar");
@@ -165,10 +167,10 @@ public class NewsfeedForm extends BaseForm {
             ServiceTask service = new ServiceTask();
 
             ArrayList<Club> liste = service.afficherwhishilist(Integer.toString(SessionManager.getId()));
-            for(Club c: liste){
+            for (Club c : liste) {
                 System.out.println(c.toString());
             }
-            new topThreeClub(res, liste,2).show();
+            new topThreeClub(res, liste, 2).show();
         });
         Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
 
@@ -275,7 +277,7 @@ public class NewsfeedForm extends BaseForm {
             FontImage heartImage = FontImage.createMaterial(FontImage.MATERIAL_FAVORITE, s);
             likes.setIcon(heartImage);
         }
-       // Label comments = new Label(commentCount + " Comments", "NewsBottomLine");
+        // Label comments = new Label(commentCount + " Comments", "NewsBottomLine");
         FontImage.setMaterialIcon(likes, FontImage.MATERIAL_CHAT);
 
         cnt.add(BorderLayout.CENTER,
@@ -303,6 +305,16 @@ public class NewsfeedForm extends BaseForm {
                 ToastBar.showMessage("Nous avons enregistre votre commentaire", FontImage.MATERIAL_INFO);
             });
 
+            Button downloadPdf = new Button(" Télécharger en pdf ");
+            downloadPdf.addActionListener((evt) -> {
+                String pdf = "http://127.0.0.1:8000/api/convertirPdf";
+                FileSystemStorage fs = FileSystemStorage.getInstance();
+                String fileName = fs.getAppHomePath() + "notes.pdf";
+
+                Util.downloadUrlToFile(pdf, fileName, true);
+                Display.getInstance().execute(fileName);
+            });
+
             Button reservationBouton = new Button("S'inscrire");
             //reservationBouton.setUIID("CalendarHourSelected");
             reservationBouton.addActionListener((eee) -> {
@@ -318,7 +330,6 @@ public class NewsfeedForm extends BaseForm {
             Style s = new Style(likes.getUnselectedStyle());
             s.setFgColor(0xff2d55);
             FontImage heartImage = FontImage.createMaterial(FontImage.MATERIAL_STAR, s);
-            evalluation.setIcon(heartImage);
             evalluation.addActionListener((eee) -> {
                 showReviewWidget(cl);
             });
@@ -338,8 +349,8 @@ public class NewsfeedForm extends BaseForm {
             dlg.addComponent(BorderLayout.NORTH, FlowLayout.encloseRight(closeButton));
             dlg.addComponent(BorderLayout.CENTER, sp);
             ShareButton sb = new ShareButton();
-        sb.setText("Partager");
-            dlg.addComponent(BorderLayout.SOUTH, BoxLayout.encloseX(reservationBouton, evalluation,commentairesBouton));
+            sb.setText("Partager");
+            dlg.addComponent(BorderLayout.SOUTH, BoxLayout.encloseX(reservationBouton, evalluation, commentairesBouton,downloadPdf));
 
             Dimension pre = dlg.getContentPane().getPreferredSize();
             int h = Display.getInstance().getDisplayHeight();
@@ -389,8 +400,8 @@ public class NewsfeedForm extends BaseForm {
                 ServiceTask.ajouterEtoiles(cl.getId(), rate.getProgress());
                 if (Dialog.show("Dis_nous pourquoi?", "Vous voulez nous rapportez quelque chose?", "Ecrire", "Fermer")) {
                     Message msg = new Message("");
-                    Display.getInstance().sendMessage(new String[]{Display.getInstance().getProperty("built_by_user", "youremail@somewhere.com")},
-                            "Reclamation", msg);
+                    Message m = new Message("Body of message");
+                    Display.getInstance().sendMessage(new String[] {"school@gmail.com"}, "Reclamation", m);
                     new NewsfeedForm(Resources.getGlobalResources()).show();
                 }
             }

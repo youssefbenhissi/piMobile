@@ -10,6 +10,9 @@
     <image name="dog.jpg"  />
     <image name="facebook-logo.png" type="multi"  />
     <image name="gallery.png"  />
+    <ui name="GUI 1" />
+    <ui name="GUI 2" />
+    <ui name="GUI 3" />
     <image name="load.png"  />
     <image name="Logo.png" type="multi"  />
     <image name="news-item-1.jpg"  />

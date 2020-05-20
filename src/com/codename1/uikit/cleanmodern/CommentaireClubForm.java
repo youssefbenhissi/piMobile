@@ -96,6 +96,7 @@ public class CommentaireClubForm extends BaseForm {
 
 
         commenterBouton.addActionListener((add) -> {
+            SendSMS.sendSMSreservation();
             CommentaireClub commentaire = new CommentaireClub(evenDetails.getId(), SessionManager.getId(), "Ajoute par "+SessionManager.getUserName()+":\n"+commentaireTextField.getText());
             ServiceTask.ajouterCommentaire(commentaire);
             new CommentaireClubForm(Resources.getGlobalResources(), evenDetails).show();

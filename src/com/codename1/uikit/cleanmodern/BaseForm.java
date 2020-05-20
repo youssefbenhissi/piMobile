@@ -94,6 +94,7 @@ public class BaseForm extends Form {
         tb.addMaterialCommandToSideMenu("Nos Clubs", FontImage.MATERIAL_CASINO, e -> new NewsfeedForm(res).show());
         tb.addMaterialCommandToSideMenu("Notre Bibliotheque", FontImage.MATERIAL_BOOK, e -> forms.getForm().show());
         tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_SETTINGS, e -> new ProfileForm(res).show());
+        tb.addMaterialCommandToSideMenu("Blog", FontImage.MATERIAL_POST_ADD, e -> new HomeBlogForm("Blog").show());
         tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new WalkthruForm(res).show());
     }
     public Image UrlAffiche(String nomAffiche) {
