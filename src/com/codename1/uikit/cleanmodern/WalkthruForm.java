@@ -35,6 +35,9 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.util.Resources;
+import entities.Evenement;
+import java.util.ArrayList;
+import services.evenementService;
 
 /**
  * Swiping thru tutorial
@@ -54,8 +57,8 @@ public class WalkthruForm extends Form {
         add(BorderLayout.CENTER, t);
         
         ScaleImageLabel page1 = new ScaleImageLabel(res.getImage("youssef.png"));
-        ScaleImageLabel page2 = new ScaleImageLabel(res.getImage("welcome-slide-2.png"));
-        ScaleImageLabel page3 = new ScaleImageLabel(res.getImage("welcome-slide-3.png"));
+        ScaleImageLabel page2 = new ScaleImageLabel(res.getImage("blogwalkthrought.png"));
+        ScaleImageLabel page3 = new ScaleImageLabel(res.getImage("profileWalkthrough.png"));
         page1.setUIID("Container");
         page2.setUIID("Container");
         page3.setUIID("Container");
@@ -67,9 +70,9 @@ public class WalkthruForm extends Form {
         t.addTab("", page3);
         
         String[] messages = {
-            "Choisissez votre club parmi une large selection",
-            "This demo is powered by\nCodename One",
-            "Start NOW\n press skip"            
+            "Choisissez votre club \n parmi une large selection",
+            "lisez voter article \n dans la section blog",
+            "Editez votre profile \n comme vous le desirez"            
         };
         
         SpanLabel message = new SpanLabel(messages[0], "WelcomeMessage");

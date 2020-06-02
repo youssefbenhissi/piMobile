@@ -66,9 +66,7 @@ public class ServiceTask {
                 t.setQuestionPr(obj.get("questionPr").toString());
                 t.setQuestionDe(obj.get("questionDe").toString());
                 t.setQuestionTr(obj.get("questionTr").toString());
-                //t.setNomcategorie(obj.get("categorie").g.toString());
                 t.setPath(obj.get("image").toString());
-                // t.setCapacite(Integer.parseInt(obj.get("capacite").toString()));
                 tasks.add(t);
             }
 
@@ -179,7 +177,6 @@ public class ServiceTask {
     }
 
     public static void convertirPdf() {
-        System.out.println("hhhhkkkk");
         String url = "http://127.0.0.1:8000/api/convertirPdf";
         ConnectionRequest request = new ConnectionRequest(url, false);
         try {
@@ -228,7 +225,6 @@ public class ServiceTask {
         String url = "http://127.0.0.1:8000/api/wishlist";
         ConnectionRequest request = new ConnectionRequest(url, false);
         try {
-            //String contenuCommentaire = SessionManager.getUserName() + " : \"" + commentaireEvenement.getContenu_commentaire() + "\"";
             request.addArgument("idClub", String.valueOf(inscr.getId_club()));
             request.addArgument("idUser", String.valueOf(inscr.getId_user()));
             NetworkManager.getInstance().addToQueueAndWait(request);
