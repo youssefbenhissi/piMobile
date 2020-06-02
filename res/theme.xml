@@ -6,6 +6,7 @@
     <image name="back.png"  />
     <image name="backgroundImage.png"  />
     <image name="bbb.png"  />
+    <image name="blogwalkthrought.png"  />
     <image name="confirmation-background.jpg"  />
     <image name="dog.jpg"  />
     <image name="facebook-logo.png" type="multi"  />
@@ -29,6 +30,7 @@
     <image name="phpotClub.png"  />
     <image name="profile-background.jpg"  />
     <image name="profile-pic.jpg" type="multi"  />
+    <image name="profileWalkthrough.png"  />
     <image name="signin-background.jpg"  />
     <image name="signup-background.jpg"  />
     <image name="sleideClub.png"  />

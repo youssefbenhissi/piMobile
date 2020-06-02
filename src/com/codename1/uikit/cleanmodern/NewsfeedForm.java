@@ -326,7 +326,7 @@ public class NewsfeedForm extends BaseForm {
                 //ServiceTask.convertirPdf();
                 //showReviewWidget(cl);
             });
-            Button evalluation = new Button("Eval");
+            Button evalluation = new Button("Evaluer");
             Style s = new Style(likes.getUnselectedStyle());
             s.setFgColor(0xff2d55);
             FontImage heartImage = FontImage.createMaterial(FontImage.MATERIAL_STAR, s);

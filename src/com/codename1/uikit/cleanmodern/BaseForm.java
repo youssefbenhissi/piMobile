@@ -92,6 +92,7 @@ public class BaseForm extends Form {
         BibliothequeForm forms= new BibliothequeForm();
                      
         tb.addMaterialCommandToSideMenu("Nos Clubs", FontImage.MATERIAL_CASINO, e -> new NewsfeedForm(res).show());
+        tb.addMaterialCommandToSideMenu("Nos Evenements", FontImage.MATERIAL_EVENT, e -> new EvenementForm(res).show());
         tb.addMaterialCommandToSideMenu("Notre Bibliotheque", FontImage.MATERIAL_BOOK, e -> forms.getForm().show());
         tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_SETTINGS, e -> new ProfileForm(res).show());
         tb.addMaterialCommandToSideMenu("Blog", FontImage.MATERIAL_POST_ADD, e -> new HomeBlogForm("Blog").show());
