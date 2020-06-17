@@ -18,7 +18,9 @@
  */
 package com.codename1.uikit.cleanmodern;
 
+import Services.Service1;
 import com.codename1.components.FloatingHint;
+import com.codename1.components.ToastBar;
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
@@ -27,6 +29,7 @@ import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.layouts.BorderLayout;
@@ -67,13 +70,21 @@ public class SignInForm extends BaseForm {
         signUp.addActionListener(e -> new SignUpForm(res).show());
         signUp.setUIID("Link");
         Label doneHaveAnAccount = new Label("Don't have an account?");
+        Button forget = new Button("forget Password");
 
+        forget.addActionListener(e -> {
+            String usernamee = username.getText();
+            Service1 service = new Service1();
+            service.retournerUser(usernamee);
+            ToastBar.showMessage("verifiez votre email", FontImage.MATERIAL_INFO);
+        });
         Container content = BoxLayout.encloseY(
                 new FloatingHint(username),
                 createLineSeparator(),
                 new FloatingHint(password),
                 createLineSeparator(),
                 signIn,
+                forget,
                 FlowLayout.encloseCenter(doneHaveAnAccount, signUp)
         );
         content.setScrollableY(true);

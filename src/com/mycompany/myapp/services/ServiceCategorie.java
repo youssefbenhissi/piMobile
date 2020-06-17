@@ -39,48 +39,49 @@ import java.util.Map;
  * @author HP
  */
 public class ServiceCategorie {
- public static ServiceCategorie instance=null;
+
+    public static ServiceCategorie instance = null;
     Livre a = new Livre();
-      private ConnectionRequest connectionRequest;
+    private ConnectionRequest connectionRequest;
     public static Form listOfBooks;
     public static Form listOfLivre;
-      List<Livre> Livre = new ArrayList<>();
-     public static ServiceCategorie getInstance() {
+    List<Livre> Livre = new ArrayList<>();
+
+    public static ServiceCategorie getInstance() {
         if (instance == null) {
             instance = new ServiceCategorie();
         }
         return instance;
     }
 
-     public static ArrayList<category> getList2() {
+    public static ArrayList<category> getList2() {
 
         ArrayList<category> listEvents = new ArrayList<>();
         ConnectionRequest con = new ConnectionRequest();
-            con.setUrl("http://localhost/pi/getbooks.php");
+        con.setUrl("http://localhost/pi/getbooks.php");
         con.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
                 //listEvents = getListEvent(new String(con.getResponseData()));
                 JSONParser jsonp = new JSONParser();
-                
+
                 try {
                     //renvoi une map avec clé = root et valeur le reste
                     Map<String, Object> Events = jsonp.parseJSON(new CharArrayReader(new String(con.getResponseData()).toCharArray()));
-                    System.out.println("roooooot:" +Events.get("root"));
+                    System.out.println("roooooot:" + Events.get("root"));
 
                     List<Map<String, Object>> list = (List<Map<String, Object>>) Events.get("root");
                     System.out.println(list);
                     for (Map<String, Object> obj : list) {
                         category event = new category();
                         float id = Float.parseFloat(obj.get("id").toString());
-                        
+
                         event.setId((int) id);
                         event.setLibelle(obj.get("libelle").toString());
-                        
+
                         event.setDescription(obj.get("description").toString());
                         event.setNom_image((String) obj.get("nom_image"));
 
-                       
                         listEvents.add(event);
 
                     }
@@ -92,38 +93,38 @@ public class ServiceCategorie {
         NetworkManager.getInstance().addToQueueAndWait(con);
         return listEvents;
     }
-     public static ArrayList getMyListcl(Integer id) {
+
+    public static ArrayList getMyListcl(Integer id) {
 
         ArrayList<Livre> listLivre = new ArrayList<>();
         ConnectionRequest con = new ConnectionRequest();
-            con.setUrl("http://localhost/pi/Livre.php?id_category=" + id);
+        con.setUrl("http://localhost/pi/Livre.php?id_category=" + id);
         con.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
                 //listLivre = getListEvent(new String(con.getResponseData()));
                 JSONParser jsonp = new JSONParser();
-                
+
                 try {
                     //renvoi une map avec clé = root et valeur le reste
                     Map<String, Object> Events = jsonp.parseJSON(new CharArrayReader(new String(con.getResponseData()).toCharArray()));
-                    System.out.println("roooooot:" +Events.get("root"));
+                    System.out.println("roooooot:" + Events.get("root"));
 
                     List<Map<String, Object>> list = (List<Map<String, Object>>) Events.get("root");
-                    
+
                     for (Map<String, Object> obj : list) {
                         Livre event = new Livre();
 
+                        event.setNom(obj.get("nom").toString());
+                        event.setAuteur(obj.get("auteur").toString());
+                        event.setId(Integer.parseInt(obj.get("id").toString()));
+                        event.setDescription(obj.get("description").toString());
+                        event.setId_category(Integer.parseInt(obj.get("id_category").toString()));
+                        event.setNom_image(obj.get("nom_image").toString());
+                        event.setNombredepage(Integer.parseInt(obj.get("nombredepage").toString()));
+                        listLivre.add(event);
+                    }
 
-                       event.setNom(obj.get("nom").toString());
-                       event.setAuteur(obj.get("auteur").toString());
-                       event.setId(Integer.parseInt(obj.get("id").toString()));
-                       event.setDescription(obj.get("description").toString());
-                       event.setId_category(Integer.parseInt(obj.get("id_category").toString()));
-                       event.setNom_image(obj.get("nom_image").toString());
-                       event.setNombredepage(Integer.parseInt(obj.get("nombredepage").toString()));
-                        listLivre.add(event);}
-
-                    
                 } catch (IOException ex) {
                 }
 
@@ -173,38 +174,39 @@ public class ServiceCategorie {
 //        return event;
 //
 //    } 
-      public ArrayList<Livre> getEvent(int id ) {
+
+    public ArrayList<Livre> getEvent(int id) {
         ArrayList<Livre> listEvent = new ArrayList<>();
         ConnectionRequest con = new ConnectionRequest();
-        con.setUrl("http://localhost/pi/getlivre.php?id="+id );
+        con.setUrl("http://localhost/pi/getlivre.php?id=" + id);
         con.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
                 //listTasks = getListTask(new String(con.getResponseData()));
                 JSONParser jsonp = new JSONParser();
-                
+
                 try {
                     //renvoi une map avec clé = root et valeur le reste
                     Map<String, Object> tasks = jsonp.parseJSON(new CharArrayReader(new String(con.getResponseData()).toCharArray()));
-                    System.out.println("roooooot:" +tasks.get("root"));
+                    System.out.println("roooooot:" + tasks.get("root"));
 
                     List<Map<String, Object>> list = (List<Map<String, Object>>) tasks.get("root");
 
                     for (Map<String, Object> obj : list) {
-                                              Livre e = new Livre() ;
+                        Livre e = new Livre();
 
                         float id = Float.parseFloat(obj.get("id").toString());
-                                    float id_category = Float.parseFloat(obj.get("id_category").toString());
-                                    float nombredepage = Float.parseFloat(obj.get("nombredepage").toString());
+                        float id_category = Float.parseFloat(obj.get("id_category").toString());
+                        float nombredepage = Float.parseFloat(obj.get("nombredepage").toString());
 
                         e.setId((int) id);
-                         e.setId_category((int) id_category);
+                        e.setId_category((int) id_category);
                         e.setNom_image(obj.get("nom").toString());
 
                         e.setNom(obj.get("nom").toString());
                         e.setDescription(obj.get("description").toString());
                         e.setAuteur(obj.get("auteur").toString());
-                                                e.setNombredepage((int) nombredepage);
+                        e.setNombredepage((int) nombredepage);
 
                         listEvent.add(e);
 
@@ -217,25 +219,22 @@ public class ServiceCategorie {
         NetworkManager.getInstance().addToQueueAndWait(con);
         return listEvent;
     }
-public void Reservation(Reservation p){
-        connectionRequest=new ConnectionRequest(){
+
+    public void Reservation(Reservation p) {
+        connectionRequest = new ConnectionRequest() {
             @Override
             protected void postResponse() {
-            ToastBar.showMessage("Nous avons enregistre votre reservation", FontImage.MATERIAL_INFO);
-            TextArea popupBody = new TextArea("Livre reserver");
-            popupBody.setUIID("PopupBody");
-            popupBody.setEditable(false);
-     
+                ToastBar.showMessage("Nous avons enregistre votre reservation", FontImage.MATERIAL_INFO);
+                TextArea popupBody = new TextArea("Livre reserver");
+                popupBody.setUIID("PopupBody");
+                popupBody.setEditable(false);
 
             }
         };
-                                         //new NoticeWindow(NoticeType.SUCCESS_NOTIFICATION,"Reservation Envoyé",NoticeWindow.LONG_DELAY,NPosition.TOP_RIGHT);
+        //new NoticeWindow(NoticeType.SUCCESS_NOTIFICATION,"Reservation Envoyé",NoticeWindow.LONG_DELAY,NPosition.TOP_RIGHT);
 
-        connectionRequest.setUrl("http://localhost/pi/raservation.php?id=" + p.getId() + "&id_user=" + p.getId_user()+"&nom="+p.getNom()+ "&id_livre=" + p.getId_livre()+"&Reponse="+p.getReponse());
+        connectionRequest.setUrl("http://localhost/pi/raservation.php?id=" + p.getId() + "&id_user=" + p.getId_user() + "&nom=" + p.getNom() + "&id_livre=" + p.getId_livre() + "&Reponse=" + p.getReponse());
         NetworkManager.getInstance().addToQueue(connectionRequest);
     }
-    
-    
 
-           }
-
+}

@@ -2,13 +2,17 @@
 
 <resource majorVersion="1" minorVersion="11" useXmlUI="false">
     <image name="activation-background.jpg"  />
+    <image name="alacat.jpg"  />
     <image name="avatar.png"  />
     <image name="back.png"  />
+    <image name="backalaa.png"  />
     <image name="backgroundImage.png"  />
     <image name="bbb.png"  />
     <image name="blogwalkthrought.png"  />
+    <image name="cat.jpg"  />
     <image name="confirmation-background.jpg"  />
     <image name="dog.jpg"  />
+    <image name="etablissement.jpg"  />
     <image name="facebook-logo.png" type="multi"  />
     <image name="gallery.png"  />
     <ui name="GUI 1" />
@@ -31,6 +35,8 @@
     <image name="profile-background.jpg"  />
     <image name="profile-pic.jpg" type="multi"  />
     <image name="profileWalkthrough.png"  />
+    <image name="reclamation.jpg"  />
+    <image name="section111.jpeg"  />
     <image name="signin-background.jpg"  />
     <image name="signup-background.jpg"  />
     <image name="sleideClub.png"  />

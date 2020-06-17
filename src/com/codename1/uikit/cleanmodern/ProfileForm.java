@@ -16,7 +16,6 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-
 package com.codename1.uikit.cleanmodern;
 
 import Entities.Utilisateur;
@@ -27,11 +26,13 @@ import com.codename1.ui.Button;
 import com.codename1.ui.CheckBox;
 import com.codename1.ui.Component;
 import com.codename1.ui.Display;
+import com.codename1.ui.EncodedImage;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
+import com.codename1.ui.URLImage;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
@@ -54,14 +55,14 @@ public class ProfileForm extends BaseForm {
         getTitleArea().setUIID("Container");
         setTitle("Profile");
         getContentPane().setScrollVisible(false);
-        
+
         super.addSideMenu(res);
-        
-        tb.addSearchCommand(e -> {});
-        
-        
+
+        tb.addSearchCommand(e -> {
+        });
+
         Image img = res.getImage("profile-background.jpg");
-        if(img.getHeight() > Display.getInstance().getDisplayHeight() / 3) {
+        if (img.getHeight() > Display.getInstance().getDisplayHeight() / 3) {
             img = img.scaledHeight(Display.getInstance().getDisplayHeight() / 3);
         }
         ScaleImageLabel sl = new ScaleImageLabel(img);
@@ -72,16 +73,21 @@ public class ProfileForm extends BaseForm {
         Label twitter = new Label("486 followers", res.getImage("twitter-logo.png"), "BottomPad");
         facebook.setTextPosition(BOTTOM);
         twitter.setTextPosition(BOTTOM);
-        
+        Image imge = UrlAffiche(SessionManager.getPhoto());
+        imge.scaledHeight(100);
+        imge.scaledWidth(100);
+        EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(100, 100, 0xffff0000), true);
+        Image img_user = URLImage.createToStorage(placeholder,SessionManager.getPhoto()+ "ddd" + ".cache",
+                "http://localhost/mus/" + SessionManager.getPhoto());
         add(LayeredLayout.encloseIn(
                 sl,
                 BorderLayout.south(
-                    GridLayout.encloseIn(3, 
-                            facebook,
-                            FlowLayout.encloseCenter(
-                                new Label(res.getImage("profile-pic.jpg"), "PictureWhiteBackgrond")),
-                            twitter
-                    )
+                        GridLayout.encloseIn(3,
+                                facebook,
+                                FlowLayout.encloseCenter(
+                                        new Label(img_user, "PictureWhiteBackgrond")),
+                                twitter
+                        )
                 )
         ));
 
@@ -92,34 +98,44 @@ public class ProfileForm extends BaseForm {
         TextField email = new TextField(SessionManager.getEmail(), "E-Mail", 20, TextField.EMAILADDR);
         email.setUIID("TextFieldBlack");
         addStringValue("E-Mail", email);
-        
+
         TextField telephone = new TextField(Integer.toString(SessionManager.getTel()), "tel", 20, TextField.EMAILADDR);
         email.setUIID("TextFieldBlack");
         addStringValue("Tel", telephone);
-        
+
         TextField password = new TextField(SessionManager.getPass(), "Password", 20, TextField.PASSWORD);
         password.setUIID("TextFieldBlack");
         addStringValue("Password", password);
         Button commenterBouton = new Button("Valider");
         commenterBouton.addActionListener(
-                e->{
-                    Utilisateur u=new Utilisateur();
+                e -> {
+                    Utilisateur u = new Utilisateur();
                     u.setEmail(email.getText());
                     u.setPassword(password.getText());
                     u.setUsername(SessionManager.getUserName());
                     u.setTelephone(Integer.parseInt(telephone.getText()));
                     Service1 s = new Service1();
-                    s.Modifierprofile(u,username.getText());
+                    s.Modifierprofile(u, username.getText());
                     ToastBar.showMessage("Nous avons enregistré vos modifications", FontImage.MATERIAL_INFO);
                 }
         );
         add(commenterBouton);
-        
+
     }
-    
+
     private void addStringValue(String s, Component v) {
         add(BorderLayout.west(new Label(s, "PaddedLabel")).
                 add(BorderLayout.CENTER, v));
         add(createLineSeparator(0xeeeeee));
+    }
+
+    public Image UrlAffiche(String nomAffiche) {
+        String url = "http://127.0.0.1:8000/api/Affiche?img=" + nomAffiche;
+        int width = Display.getInstance().getDisplayWidth();
+        EncodedImage placeholder = EncodedImage.createFromImage(Resources.getGlobalResources().getImage("load.png").scaledWidth(Math.round(Display.getInstance().getDisplayWidth())), false);
+        Image urli = URLImage.createToStorage(placeholder, "Medium_" + url, url, URLImage.RESIZE_FAIL);
+
+        return urli;
+
     }
 }

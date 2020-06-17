@@ -34,22 +34,23 @@ import java.util.ArrayList;
  *
  * @author HP
  */
-public class BibliothequeForm extends Form{
+public class BibliothequeForm extends Form {
 
     private Button listBooksBtn;
-   private Container mainContainer;
-   Form mainForm = new Form();
-   public static int id;
-              
-                SpanLabel lb;
-                Label label;
-                String url;
-                EncodedImage enc;
-                URLImage uRLImage;
-                ImageViewer imgV;
-                Container oneEvent;
-   public BibliothequeForm(){
-       this.setLayout(new FlowLayout(CENTER, CENTER));
+    private Container mainContainer;
+    Form mainForm = new Form();
+    public static int id;
+
+    SpanLabel lb;
+    Label label;
+    String url;
+    EncodedImage enc;
+    URLImage uRLImage;
+    ImageViewer imgV;
+    Container oneEvent;
+
+    public BibliothequeForm() {
+        this.setLayout(new FlowLayout(CENTER, CENTER));
 //       
 //       listBooksBtn = new Button("Hellow in my library you can choise un livre ou reservee bienvenue ");
 //       listBooksBtn.getUnselectedStyle().setFgColor(5542241);
@@ -67,37 +68,38 @@ public class BibliothequeForm extends Form{
 //                new ServiceCategorie().findAllBooks();
 //            }
 //        });
- com.codename1.ui.List uiLibsList = new com.codename1.ui.List();
- this.setLayout(new FlowLayout(CENTER, CENTER));
-  mainForm = new Form("Liste des categories",new BoxLayout(BoxLayout.Y_AXIS));
-        ArrayList<category> lis= ServiceCategorie.getList2();
-         ArrayList<String> libsNoms = new ArrayList<>();
-        for(category l:lis){
-                         libsNoms.add(l.getLibelle());}
+        com.codename1.ui.List uiLibsList = new com.codename1.ui.List();
+        this.setLayout(new FlowLayout(CENTER, CENTER));
+        mainForm = new Form("Liste des categories", new BoxLayout(BoxLayout.Y_AXIS));
+        ArrayList<category> lis = ServiceCategorie.getList2();
+        ArrayList<String> libsNoms = new ArrayList<>();
+        for (category l : lis) {
+            libsNoms.add(l.getLibelle());
+        }
 
-             com.codename1.ui.list.DefaultListModel<String> listModel = new com.codename1.ui.list.DefaultListModel<>(libsNoms);
-                uiLibsList.setModel(listModel);
-                uiLibsList.addActionListener(new ActionListener() {
+        com.codename1.ui.list.DefaultListModel<String> listModel = new com.codename1.ui.list.DefaultListModel<>(libsNoms);
+        uiLibsList.setModel(listModel);
+        uiLibsList.addActionListener(new ActionListener() {
 
-                    @Override
-                    public void actionPerformed(ActionEvent evt) {
-                       category  currentBook = lis.get(uiLibsList.getCurrentSelected());
-                       LivreForm forms= new LivreForm(currentBook.getId());
-                       forms.getForm().show();
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                category currentBook = lis.get(uiLibsList.getCurrentSelected());
+                LivreForm forms = new LivreForm(currentBook.getId());
+                forms.getForm().show();
 
-                    }
-                });
-                
-      mainForm.setLayout(new BorderLayout());
-                mainForm.add(BorderLayout.NORTH,uiLibsList);
- mainForm.getToolbar().setBackCommand("", e -> {
-          new Accueil().getForm().showBack();
-          
+            }
         });
-   }
- 
-   public Form getForm(){
-   return mainForm;
-   }
-    
+
+        mainForm.setLayout(new BorderLayout());
+        mainForm.add(BorderLayout.NORTH, uiLibsList);
+        mainForm.getToolbar().setBackCommand("", e -> {
+            new Accueil().getForm().showBack();
+
+        });
+    }
+
+    public Form getForm() {
+        return mainForm;
+    }
+
 }

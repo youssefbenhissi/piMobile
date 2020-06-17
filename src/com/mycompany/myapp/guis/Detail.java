@@ -42,65 +42,61 @@ import java.util.Random;
  *
  * @author hp
  */
-public class Detail  extends Form{
-          EncodedImage encoded;
-Form f ;
- Livre liv;
-String url ="http://localhost/img/";
+public class Detail extends Form {
 
-    public  Detail(Livre l){
-                     f= new Form("Details de livre  :"+l.getNom(), new BoxLayout(BoxLayout.Y_AXIS));
+    EncodedImage encoded;
+    Form f;
+    Livre liv;
+    String url = "http://localhost/img/";
 
-               // f= new Form("Details de livre  :  "+l.getNom());
+    public Detail(Livre l) {
+        f = new Form("Details de livre  :" + l.getNom(), new BoxLayout(BoxLayout.Y_AXIS));
 
-        Label nomLi = new Label("livre de la category    : "+l.getNombredepage());
+        // f= new Form("Details de livre  :  "+l.getNom());
+        Label nomLi = new Label("livre de la category    : " + l.getNombredepage());
 
         Container ctn1 = new Container(BoxLayout.y());
-        Label nomLivre = new Label("nom du livre          : "+l.getNom());
-        Label Description = new Label("Description            :"+l.getDescription());
-        Label auteur = new Label("auteur       :"   +l.getAuteur());
-        Label nombredepage = new Label("nombre de page de livre         :"+l.getNombredepage());
-         Style s = UIManager.getInstance().getComponentStyle("MultiLine1");
+        Label nomLivre = new Label("nom du livre          : " + l.getNom());
+        Label Description = new Label("Description            :" + l.getDescription());
+        Label auteur = new Label("auteur       :" + l.getAuteur());
+        Label nombredepage = new Label("nombre de page de livre         :" + l.getNombredepage());
+        Style s = UIManager.getInstance().getComponentStyle("MultiLine1");
 
-               FontImage p = FontImage.createMaterial(FontImage.MATERIAL_PORTRAIT, s);
+        FontImage p = FontImage.createMaterial(FontImage.MATERIAL_PORTRAIT, s);
 
-              EncodedImage placeholder = EncodedImage.createFromImage(p.scaled(p.getWidth() * 2, p.getHeight() * 2), false);
+        EncodedImage placeholder = EncodedImage.createFromImage(p.scaled(p.getWidth() * 2, p.getHeight() * 2), false);
 
-           Label cadrephoto=new Label();
-            System.out.println(l.getAuteur());
-  cadrephoto.setIcon(URLImage.createToStorage(placeholder, url+ l.getNom_image(), url+ l.getNom_image())); 
-        
+        Label cadrephoto = new Label();
+        System.out.println(l.getAuteur());
+        cadrephoto.setIcon(URLImage.createToStorage(placeholder, url + l.getNom_image(), url + l.getNom_image()));
+
         System.out.println(l.getNom_image());
         Label image = new Label();
-                Button btnValider = new Button("mail us!");
-           
-           
-          btnValider.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent evt) {
-         new OpinionDAO();
-      
-      }
-  });  
-         
-         Button event_btn=new Button("Demande Reserver Livre");
-         LocalNotification ln = new LocalNotification();
-ln.setAlertTitle("Test");
-ln.setAlertBody("This is a test message");
-ln.setId("This is a test Id");
-         event_btn.addActionListener((ActionEvent e)->{
-                     Reservation r= new Reservation( l.getNom(), l.getId());
+        Button btnValider = new Button("mail us!");
 
-             ServiceCategorie rs = new ServiceCategorie();
- 
-             rs.Reservation(r);
-             
-     
-            });
-          
-       
+        btnValider.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                new OpinionDAO();
+
+            }
+        });
+
+        Button event_btn = new Button("Demande Reserver Livre");
+        LocalNotification ln = new LocalNotification();
+        ln.setAlertTitle("Test");
+        ln.setAlertBody("This is a test message");
+        ln.setId("This is a test Id");
+        event_btn.addActionListener((ActionEvent e) -> {
+            Reservation r = new Reservation(l.getNom(), l.getId());
+
+            ServiceCategorie rs = new ServiceCategorie();
+
+            rs.Reservation(r);
+
+        });
+
         //mesoffrespartagesfb.setUIID("mesoffrespartagesfb");
-      
         //image.setIcon(imgserver);
         ctn1.add(cadrephoto);
         ctn1.add(nomLivre);
@@ -109,20 +105,17 @@ ln.setId("This is a test Id");
         ctn1.add(nombredepage);
         ctn1.add(event_btn);
         ctn1.add(btnValider);
-        f.add(ctn1);       
+        f.add(ctn1);
 
+        f.getToolbar().setBackCommand("", e -> {
+            new BibliothequeForm().getForm().showBack();
 
-f.getToolbar().setBackCommand("", e -> {
-          new BibliothequeForm().getForm().showBack();
-          
         });
 
+    }
 
+    public Form getForm() {
+        return f;
     }
-    public Form getForm(){
-    return f;
-    }
-    
-    
+
 }
-
